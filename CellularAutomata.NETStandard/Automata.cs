@@ -40,7 +40,12 @@ namespace CellularAutomata.NETStandard
             Configuration = configuration;
             Rules = rules;
             Neighborhood = neighborhood;
-            Grid = new AutomataGrid<T>(configuration.Dimensions, configuration.DefaultState);
+            var defaultState = configuration.DefaultState;
+            if (defaultState is null)
+            {
+                throw new ArgumentException("A non-null default cell state is required.", nameof(configuration));
+            }
+            Grid = new AutomataGrid<T>(configuration.Dimensions, defaultState);
         }
 
         public void InitializeGrid(Dictionary<Vector<int>, T> stateMap)
