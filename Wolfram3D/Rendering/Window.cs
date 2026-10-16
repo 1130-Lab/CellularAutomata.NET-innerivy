@@ -19,7 +19,8 @@ namespace Wolfram3D.Rendering
         private CellularAutomataGrid<int>? _currentGrid;
         private CellularAutomataGrid<int>? _previousGrid;
         private volatile bool _gridChanged = false;
-        private GL _gl;
+        private GL? _gl;
+        private GL Graphics => _gl ?? throw new InvalidOperationException("OpenGL is not initialized.");
         private IKeyboard? primaryKeyboard;
 
         private readonly float _cubeSize = cubeSize;
@@ -86,7 +87,7 @@ namespace Wolfram3D.Rendering
                     var x = cell.Key[0] * _cubeSize;
                     var y = cell.Key[1] * _cubeSize;
                     var z = cell.Key[2] * _cubeSize;
-                    _wolframCubes.Add(new Wolfram3DCube(_gl, _cubeSize, x, y, z));
+                    _wolframCubes.Add(new Wolfram3DCube(Graphics, _cubeSize, x, y, z));
                 }
             }
         }
@@ -145,12 +146,12 @@ namespace Wolfram3D.Rendering
 
             _gl = GL.GetApi(_window);
 
-            _shader = new Shader(_gl, "shader.vert", "shader.frag");
+            _shader = new Shader(Graphics, "shader.vert", "shader.frag");
 
             _textures = new Texture[4];
             for (int i = 1; i <= 4; i++)
             {
-                _textures[i - 1] = new Texture(_gl, $"Textures/Ground_0{i}.png");
+                _textures[i - 1] = new Texture(Graphics, $"Textures/Ground_0{i}.png");
             }
             Loaded = true;
             OnLoaded?.Invoke();
@@ -168,12 +169,12 @@ namespace Wolfram3D.Rendering
                 throw new InvalidProgramException("Shader not initialized.");
             }
 
-            _gl.Enable(EnableCap.DepthTest);
-            _gl.Clear((uint)(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
+            Graphics.Enable(EnableCap.DepthTest);
+            Graphics.Clear((uint)(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
 
-            if (_gridChanged)
+            if (_gridChanged && _currentGrid is { } currentGrid)
             {
-                LoadWolframCubes(_currentGrid);
+                LoadWolframCubes(currentGrid);
                 _gridChanged = false;
             }
             _shader.Use();
@@ -225,13 +226,13 @@ namespace Wolfram3D.Rendering
                 _shader.SetUniform("uProjection", projection);
 
                 //We're drawing with just vertices and no indices, and it takes 36 vertices to have a six-sided textured cube
-                _gl.DrawArrays(PrimitiveType.Triangles, 0, 36);
+                Graphics.DrawArrays(PrimitiveType.Triangles, 0, 36);
             }
         }
 
         private void OnFramebufferResize(Vector2D<int> newSize)
         {
-            _gl.Viewport(newSize);
+            Graphics.Viewport(newSize);
         }
 
         private unsafe void OnMouseMove(IMouse mouse, Vector2 position)

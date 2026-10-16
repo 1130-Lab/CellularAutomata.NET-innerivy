@@ -41,7 +41,7 @@ namespace CellularAutomata.NETStandard
                 },
             };
 
-        public Vector<int>[] NeighborLocations { get; set; }
+        public Vector<int>[] NeighborLocations { get; set; } = System.Array.Empty<Vector<int>>();
         public bool ClearNeighborsAfterUse { get; set; } = true;
 
         public void GetNeighbors(

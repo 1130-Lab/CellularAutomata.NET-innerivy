@@ -9,11 +9,13 @@ namespace CellularAutomata.NETStandard
         /// <summary>
         /// Dimensions of the cellular automata grid.
         /// </summary>
-        public AutomataDimension[] Dimensions { get; set; }
+        public AutomataDimension[] Dimensions { get; set; } = Array.Empty<AutomataDimension>();
 
         /// <summary>
         /// Default state for all cells in the grid.
         /// </summary>
+        // Match the CLR default for both value and reference cell states.
+        [System.Diagnostics.CodeAnalysis.MaybeNull]
         public T DefaultState { get; set; }
 
         /// <summary>

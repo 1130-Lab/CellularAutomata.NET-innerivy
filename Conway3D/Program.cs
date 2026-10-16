@@ -9,7 +9,6 @@ namespace Conway3D
         private const int _universeSize = 36;
 
         private static CancellationTokenSource _cancelToken = new CancellationTokenSource();
-        private static Conway3DWindow _window;
 
         private static Queue<Vector<int>> _cellsToAdd = new Queue<Vector<int>>();
         private static Queue<Vector<int>> _cellsToRemove = new Queue<Vector<int>>();
@@ -26,12 +25,12 @@ namespace Conway3D
 
         public static void RunRenderer()
         {
-            _window = new Conway3DWindow(800, 800, 0.1f);
-            _window.OnLoaded = () =>
+            var window = new Conway3DWindow(800, 800, 0.1f);
+            window.OnLoaded = () =>
             {
-                Task.Factory.StartNew(() => RunAutomata(), _cancelToken.Token);
+                Task.Factory.StartNew(() => RunAutomata(window), _cancelToken.Token);
             };
-            _window.Start();
+            window.Start();
             _cancelToken.Cancel();
         }
 
@@ -71,7 +70,7 @@ namespace Conway3D
             }
         );
 
-        private static void RunAutomata()
+        private static void RunAutomata(Conway3DWindow window)
         {
             CellularAutomataConfiguration<int> config = new CellularAutomataConfiguration<int>
             {
@@ -136,7 +135,7 @@ namespace Conway3D
             }
 
             automaton.InitializeGrid(initialState);
-            _window.UpdateState(automaton.Grid);
+            window.UpdateState(automaton.Grid);
 
             Console.WriteLine("Press a key to continue...");
             string? input = Console.ReadLine();
@@ -147,11 +146,11 @@ namespace Conway3D
                 automaton.Step();
                 while (_cellsToAdd.Count > 0)
                 {
-                    _window.AddWolframCube(_cellsToAdd.Dequeue());
+                    window.AddWolframCube(_cellsToAdd.Dequeue());
                 }
                 while (_cellsToRemove.Count > 0)
                 {
-                    _window.RemoveWolframCube(_cellsToRemove.Dequeue());
+                    window.RemoveWolframCube(_cellsToRemove.Dequeue());
                 }
                 Console.WriteLine("Press a key to continue to step " + (step + 1) + "...");
                 input = Console.ReadLine();
