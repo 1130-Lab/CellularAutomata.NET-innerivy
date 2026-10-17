@@ -2,6 +2,9 @@
   <Project Path="CellularAutomata.NET.Bitmaps/CellularAutomata.NET.Bitmaps.csproj" Id="d61d8471-902e-4e57-81de-956706431f11" />
   <Project Path="CellularAutomata.NET/CellularAutomata.NET.csproj" />
   <Project Path="CellularAutomata.NETStandard/CellularAutomata.NETStandard.csproj" Id="0362ebcc-8dc9-484a-89dd-8271383669c0" />
+  <Project Path="CellularAutomata.NET.WebHost/CellularAutomata.NET.WebHost.csproj" />
+  <Project Path="CellularAutomata.NET.WebHost.ParityRunner/CellularAutomata.NET.WebHost.ParityRunner.csproj" />
+  <Project Path="CellularAutomata.NET.WebHost.Tests/CellularAutomata.NET.WebHost.Tests.csproj" />
   <Project Path="Conway/Conway.csproj" />
   <Project Path="Conway3D/Conway3D.csproj" Id="d1232380-fae4-412f-86b7-5e39b45366cc" />
   <Project Path="MNCA/MNCA.csproj" Id="793f8889-f324-4b80-9183-19ff850c6d54" />

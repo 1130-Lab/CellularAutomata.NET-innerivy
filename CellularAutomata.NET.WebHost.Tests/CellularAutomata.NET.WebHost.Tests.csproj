@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomata.NET\CellularAutomata.NET.csproj" />
+    <!-- The example projects, so presets can be checked against their actual Rules delegates. -->
+    <ProjectReference Include="..\Conway\Conway.csproj" />
+    <ProjectReference Include="..\Wolfram\Wolfram.csproj" />
+    <ProjectReference Include="..\Conway3D\Conway3D.csproj" />
+  </ItemGroup>
+
+  <!-- The WASM host's engine code (no JS interop), compiled natively. -->
+  <ItemGroup>
+    <Compile Include="..\CellularAutomata.NET.WebHost\Engine\**\*.cs" Link="Engine\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

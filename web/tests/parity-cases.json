@@ -1,0 +1,37 @@
+[
+  { "name": "conway-2d", "preset": "conway-2d", "checkpoints": [0, 1, 10, 60] },
+  { "name": "conway-3d", "preset": "conway-3d", "checkpoints": [0, 5, 20] },
+  { "name": "wolfram-30-2d", "preset": "wolfram-30-2d", "checkpoints": [0, 127] },
+  { "name": "wolfram-30-3d", "preset": "wolfram-30-3d", "checkpoints": [0, 23] },
+  { "name": "wolfram-73-3d (all cells)", "preset": "wolfram-73-3d", "checkpoints": [0, 12] },
+  { "name": "brians-brain-2d", "preset": "brians-brain-2d", "checkpoints": [0, 40] },
+  { "name": "pyroclastic-3d", "preset": "pyroclastic-3d", "checkpoints": [0, 30, 60] },
+  {
+    "name": "von-neumann-r2-wrapped-random",
+    "spec": {
+      "size": [96, 64],
+      "wrap": [true, false],
+      "rule": {
+        "kind": "totalistic",
+        "neighborhood": [[0,-2],[-1,-1],[0,-1],[1,-1],[-2,0],[-1,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[0,2]],
+        "birth": [3, 4], "survive": [2, 3, 4, 5], "states": 4
+      },
+      "seed": { "kind": "random", "rng": 4000000000, "density": 0.4 }
+    },
+    "checkpoints": [0, 7, 25]
+  },
+  {
+    "name": "pattern-4-groups-3d",
+    "spec": {
+      "size": [20, 18, 16],
+      "wrap": [true, true, true],
+      "rule": {
+        "kind": "pattern",
+        "groups": [[[-1,0,0],[1,0,0]], [[0,-1,0],[0,1,0]], [[0,0,-1],[0,0,1]], [[0,0,0]]],
+        "table": [0,1,1,0, 1,0,0,1, 1,0,0,0, 0,1,1,1]
+      },
+      "seed": { "kind": "random", "rng": 99, "density": 0.15, "regionMin": [0.25,0.25,0.25], "regionMax": [0.75,0.75,0.75] }
+    },
+    "checkpoints": [0, 3, 15]
+  }
+]

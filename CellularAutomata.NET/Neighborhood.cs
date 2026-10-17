@@ -34,14 +34,78 @@ namespace CellularAutomata.NET
                 {
                     // Up
                     AutomataVector.Create(0, -1),
-                    // Down
-                    AutomataVector.Create(-1, 0),
                     // Left
-                    AutomataVector.Create(1, 0),
+                    AutomataVector.Create(-1, 0),
                     // Right
+                    AutomataVector.Create(1, 0),
+                    // Down
                     AutomataVector.Create(0, 1),
                 },
             };
+
+        /// <summary>
+        /// N-dimensional Moore neighborhood: every offset with Chebyshev distance 1..radius.
+        /// </summary>
+        public static CellularAutomataNeighborhood<T> Moore(int dimensions, int radius = 1)
+        {
+            return FromPredicate(dimensions, radius, offset => true);
+        }
+
+        /// <summary>
+        /// N-dimensional von Neumann neighborhood: every offset with Manhattan distance 1..radius.
+        /// </summary>
+        public static CellularAutomataNeighborhood<T> VonNeumann(int dimensions, int radius = 1)
+        {
+            return FromPredicate(
+                dimensions,
+                radius,
+                offset =>
+                {
+                    int manhattan = 0;
+                    foreach (int v in offset)
+                    {
+                        manhattan += Math.Abs(v);
+                    }
+                    return manhattan <= radius;
+                }
+            );
+        }
+
+        private static CellularAutomataNeighborhood<T> FromPredicate(
+            int dimensions,
+            int radius,
+            Func<int[], bool> include
+        )
+        {
+            if (dimensions < 1 || dimensions > AutomataVector.SIMD_SIZE)
+            {
+                throw new ArgumentOutOfRangeException(nameof(dimensions));
+            }
+            if (radius < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(radius));
+            }
+            var locations = new List<Vector<int>>();
+            int[] offset = new int[dimensions];
+            int side = radius * 2 + 1;
+            int total = (int)Math.Pow(side, dimensions);
+            for (int n = 0; n < total; n++)
+            {
+                int rest = n;
+                bool origin = true;
+                for (int d = 0; d < dimensions; d++)
+                {
+                    offset[d] = rest % side - radius;
+                    rest /= side;
+                    origin &= offset[d] == 0;
+                }
+                if (!origin && include(offset))
+                {
+                    locations.Add(AutomataVector.Create(offset));
+                }
+            }
+            return new CellularAutomataNeighborhood<T>() { NeighborLocations = locations.ToArray() };
+        }
 
         public required Vector<int>[] NeighborLocations { get; set; }
         public bool ClearNeighborsAfterUse { get; set; } = true;
@@ -59,30 +123,50 @@ namespace CellularAutomata.NET
 
             for (int i = 0; i < NeighborLocations.Length; i++)
             {
-                Vector<int> neighborPos = position + NeighborLocations[i];
-
-                for (int d = 0; d < grid.Dimensions.Length; d++)
+                if (TryResolve(position + NeighborLocations[i], grid.Dimensions, out var neighborPos))
                 {
-                    CellularAutomataDimension dimension = grid.Dimensions[d];
-                    if (dimension.WrapStart && neighborPos.GetElement(d) < 0)
-                    {
-                        neighborPos = neighborPos.WithElement(d, dimension.Cells - 1);
-                    }
-                    if (dimension.WrapEnd && neighborPos.GetElement(d) >= dimension.Cells)
-                    {
-                        neighborPos = neighborPos.WithElement(d, 0);
-                    }
-                }
-                if (IsValidPosition(neighborPos, grid))
-                {
-                    neighbors.Add(NeighborLocations[i], grid.State[neighborPos]);
+                    neighbors[NeighborLocations[i]] = grid.GetCell(neighborPos)!;
                 }
             }
         }
 
-        private static bool IsValidPosition(Vector<int> pos, CellularAutomataGrid<T> grid)
+        /// <summary>
+        /// Applies the grid's wrapping rules to a position. Returns false if the position falls
+        /// outside a dimension that does not wrap on that side.
+        /// </summary>
+        public static bool TryResolve(
+            Vector<int> position,
+            CellularAutomataDimension[] dimensions,
+            out Vector<int> resolved
+        )
         {
-            return AutomataVector.IsInBounds(pos, grid.Dimensions);
+            resolved = position;
+            for (int d = 0; d < dimensions.Length; d++)
+            {
+                CellularAutomataDimension dimension = dimensions[d];
+                int value = position[d];
+                if (value < 0)
+                {
+                    if (!dimension.WrapStart)
+                    {
+                        return false;
+                    }
+                }
+                else if (value >= dimension.Cells)
+                {
+                    if (!dimension.WrapEnd)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+                int wrapped = ((value % dimension.Cells) + dimension.Cells) % dimension.Cells;
+                resolved = resolved.WithElement(d, wrapped);
+            }
+            return true;
         }
     }
 }

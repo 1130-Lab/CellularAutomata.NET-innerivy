@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Runs the parity cases (web/tests/parity-cases.json) natively and prints SHA-256 hashes of the
+       state at each checkpoint. The Playwright parity test compares them with the same cases run in
+       the browser on WebAssembly. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomata.NET\CellularAutomata.NET.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CellularAutomata.NET.WebHost\Engine\**\*.cs" Link="Engine\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

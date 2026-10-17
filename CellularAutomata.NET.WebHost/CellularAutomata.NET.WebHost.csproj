@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- The web app loads _framework/dotnet.js from a Web Worker, where import maps don't apply,
+         so asset names must be stable. -->
+    <WasmFingerprintAssets>false</WasmFingerprintAssets>
+    <!-- AOT-compile to WebAssembly on publish: ~10x faster stepping than the interpreter. -->
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <!-- Keep real exception messages (validation errors surface in the UI). -->
+    <UseSystemResourceKeys>false</UseSystemResourceKeys>
+    <!-- Engine/ is pure managed code (no JS interop) so it is also compiled natively by the tests. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomata.NET\CellularAutomata.NET.csproj" />
+  </ItemGroup>
+</Project>
