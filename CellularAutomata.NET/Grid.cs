@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Numerics;
@@ -178,7 +178,7 @@ namespace CellularAutomata.NET
             var state = ImmutableDictionary.CreateBuilder<Vector<int>, CellularAutomataCell<T>>();
             foreach (var kvp in existingState)
             {
-                state.Add(kvp.Key, new CellularAutomataCell<T>(kvp.Value.State));
+                state.Add(kvp.Key, new CellularAutomataCell<T>(kvp.Value.State) { Position = kvp.Key });
             }
             return state.ToImmutable();
         }

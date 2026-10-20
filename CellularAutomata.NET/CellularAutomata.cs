@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Numerics;
@@ -43,6 +43,8 @@ namespace CellularAutomata.NET
         private readonly HashSet<CellularAutomataCell<T>> _visibleCellsCopy =
             new HashSet<CellularAutomataCell<T>>();
 
+        private readonly HashSet<CellularAutomataCell<T>> _cachedNeighbors = new();
+
         public void InitializeGrid(Dictionary<Vector<int>, T> stateMap)
         {
             foreach (var kvp in stateMap)
@@ -62,7 +64,7 @@ namespace CellularAutomata.NET
                     }
                 }
                 Grid.State[pos].SetState(stateValue);
-                AddVisibleCell(Grid.State[pos]);
+                if (!configuration.EvaluateAllCells) AddVisibleCell(Grid.State[pos]);
             }
             Grid.UpdateGridStates();
         }
@@ -70,19 +72,27 @@ namespace CellularAutomata.NET
         public CellularAutomataGrid<T> Step()
         {
             _visibleCellsCopy.Clear();
-            foreach (var cell in _visibleCells)
+            foreach (var cell in configuration.EvaluateAllCells ? Grid.State.Values : _visibleCells)
             {
                 _visibleCellsCopy.Add(cell);
             }
             foreach (var cell in _visibleCellsCopy)
             {
-                cell.Neighbors.Clear();
-                Neighborhood.GetNeighbors(cell.Position, Grid, cell.Neighbors);
-                cell.StateHistory.Add(cell.State);
+                if (!configuration.CacheNeighbors || _cachedNeighbors.Add(cell))
+                {
+                    cell.Neighbors.Clear();
+                    Neighborhood.GetNeighbors(cell.Position, Grid, cell.Neighbors);
+                }
+                if (configuration.CellHistoryLimit != 0)
+                {
+                    cell.StateHistory.Add(cell.State);
+                    if (configuration.CellHistoryLimit > 0 && cell.StateHistory.Count > configuration.CellHistoryLimit)
+                        cell.StateHistory.RemoveRange(0, cell.StateHistory.Count - configuration.CellHistoryLimit);
+                }
                 Rules.Invoke(cell, cell.Neighbors, this);
-                AddVisibleCell(cell);
+                if (!configuration.EvaluateAllCells) AddVisibleCell(cell);
             }
-            RemoveUnchangedVisibleCells(_visibleCellsCopy);
+            if (!configuration.EvaluateAllCells) RemoveUnchangedVisibleCells(_visibleCellsCopy);
             Grid.UpdateGridStates();
             if (configuration.KeepAnyGridStates)
             {

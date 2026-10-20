@@ -416,3 +416,12 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Static web visualizer
+visualizer/dist/
+visualizer/public/wasm/
+visualizer/test-results/
+visualizer/playwright-report/
+*.tsbuildinfo
+
+.tools/

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +6,15 @@ namespace CellularAutomata.NET
 {
     public class CellularAutomataConfiguration<T>
     {
+        /// <summary>Evaluate every cell, including quiescent cells (required for B0 rules).</summary>
+        public bool EvaluateAllCells { get; set; }
+
+        /// <summary>Cache neighbor references. Requires fixed dimensions/neighborhood and rules that do not mutate Neighbors.</summary>
+        public bool CacheNeighbors { get; set; }
+
+        /// <summary>Zero disables cell history; negative preserves legacy unlimited history.</summary>
+        public int CellHistoryLimit { get; set; } = -1;
+
         /// <summary>
         /// Dimensions of the cellular automata grid.
         /// </summary>
