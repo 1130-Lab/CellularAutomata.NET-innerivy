@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- The web app serves its own static files; skip precompressed copies. -->
+    <CompressionEnabled>false</CompressionEnabled>
+    <!-- AOT needs the wasm-tools workload (`dotnet workload install wasm-tools`).
+         Build with -p:CaAot=true to enable it; the default build uses the interpreter. -->
+    <RunAOTCompilation Condition="'$(CaAot)' == 'true'">true</RunAOTCompilation>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CellularAutomata.NET\CellularAutomata.NET.csproj" />
+  </ItemGroup>
+</Project>

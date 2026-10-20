@@ -1,0 +1,670 @@
+[
+  {
+    "name": "conway-2d",
+    "steps": 40,
+    "population": 2084,
+    "hash": "49ee89326c415753",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        true,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          3
+        ],
+        "survive": [
+          2,
+          3
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "moore",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 42,
+        "density": 0.3,
+        "fill": 1
+      }
+    }
+  },
+  {
+    "name": "conway-2d-glider",
+    "steps": 40,
+    "population": 5,
+    "hash": "3bd87a7aa0bd6ad4",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          3
+        ],
+        "survive": [
+          2,
+          3
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "moore",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "conway-3d",
+    "steps": 12,
+    "population": 3319,
+    "hash": "6cb132950254ad68",
+    "spec": {
+      "size": [
+        32,
+        32,
+        32
+      ],
+      "wrap": [
+        true,
+        true,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          3
+        ],
+        "survive": [
+          2,
+          3
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "extrudedMoore",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 7,
+        "density": 0.5,
+        "fill": 0.3333333333333333
+      }
+    }
+  },
+  {
+    "name": "wolfram-30-2d",
+    "steps": 40,
+    "population": 918,
+    "hash": "faa958f969b6062d",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "table",
+        "states": 2,
+        "groups": [
+          [
+            [
+              -1,
+              -1
+            ]
+          ],
+          [
+            [
+              0,
+              -1
+            ]
+          ],
+          [
+            [
+              1,
+              -1
+            ]
+          ]
+        ],
+        "table": "01111000"
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            64,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "wolfram-30-3d",
+    "steps": 12,
+    "population": 1647,
+    "hash": "26968ca3b9df60aa",
+    "spec": {
+      "size": [
+        32,
+        32,
+        32
+      ],
+      "wrap": [
+        false,
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "table",
+        "states": 2,
+        "groups": [
+          [
+            [
+              -1,
+              -1,
+              -1
+            ],
+            [
+              -1,
+              -1,
+              0
+            ],
+            [
+              -1,
+              -1,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              -1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              0,
+              -1,
+              1
+            ]
+          ],
+          [
+            [
+              1,
+              -1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              0
+            ],
+            [
+              1,
+              -1,
+              1
+            ]
+          ]
+        ],
+        "table": "01111000"
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            16,
+            0,
+            16
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "wolfram-90-2d",
+    "steps": 40,
+    "population": 301,
+    "hash": "92a7286cc00ca3fc",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "table",
+        "states": 2,
+        "groups": [
+          [
+            [
+              -1,
+              -1
+            ]
+          ],
+          [
+            [
+              0,
+              -1
+            ]
+          ],
+          [
+            [
+              1,
+              -1
+            ]
+          ]
+        ],
+        "table": "01011010"
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            64,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "wolfram-110-2d",
+    "steps": 40,
+    "population": 514,
+    "hash": "470e288fe7d7346d",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "table",
+        "states": 2,
+        "groups": [
+          [
+            [
+              -1,
+              -1
+            ]
+          ],
+          [
+            [
+              0,
+              -1
+            ]
+          ],
+          [
+            [
+              1,
+              -1
+            ]
+          ]
+        ],
+        "table": "01110110"
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            127,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "brians-brain-2d",
+    "steps": 40,
+    "population": 861,
+    "hash": "74b0c4f98d373744",
+    "spec": {
+      "size": [
+        128,
+        128
+      ],
+      "wrap": [
+        true,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          2
+        ],
+        "survive": [],
+        "states": 3,
+        "neighborhood": {
+          "type": "moore",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 3,
+        "density": 0.2,
+        "fill": 0.5
+      }
+    }
+  },
+  {
+    "name": "life-4555-3d",
+    "steps": 12,
+    "population": 64,
+    "hash": "281b9e48e511d6c7",
+    "spec": {
+      "size": [
+        32,
+        32,
+        32
+      ],
+      "wrap": [
+        true,
+        true,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          5
+        ],
+        "survive": [
+          4,
+          5
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "moore",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 11,
+        "density": 0.3,
+        "fill": 0.4
+      }
+    }
+  },
+  {
+    "name": "crystal-3d",
+    "steps": 12,
+    "population": 505,
+    "hash": "f8db69d1b546e38c",
+    "spec": {
+      "size": [
+        32,
+        32,
+        32
+      ],
+      "wrap": [
+        false,
+        false,
+        false
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          1
+        ],
+        "survive": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "vonNeumann",
+          "radius": 1
+        }
+      },
+      "seed": {
+        "type": "cells",
+        "seed": 1,
+        "density": 0.3,
+        "fill": 1,
+        "cells": [
+          [
+            16,
+            16,
+            16
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "name": "custom-3d-generations",
+    "steps": 25,
+    "population": 3405,
+    "hash": "c9ee30cc2b0dbc50",
+    "spec": {
+      "size": [
+        20,
+        18,
+        16
+      ],
+      "wrap": [
+        true,
+        false,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          4,
+          5
+        ],
+        "survive": [
+          2,
+          3,
+          4
+        ],
+        "states": 5,
+        "neighborhood": {
+          "type": "vonNeumann",
+          "radius": 2
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 123456789,
+        "density": 0.35,
+        "fill": 0.8
+      }
+    }
+  },
+  {
+    "name": "custom-2d-table-4-groups",
+    "steps": 63,
+    "population": 3011,
+    "hash": "cd430f2b3a4b5ab6",
+    "spec": {
+      "size": [
+        96,
+        64
+      ],
+      "wrap": [
+        true,
+        false
+      ],
+      "rule": {
+        "kind": "table",
+        "states": 2,
+        "groups": [
+          [
+            [
+              -2,
+              -1
+            ]
+          ],
+          [
+            [
+              -1,
+              -1
+            ],
+            [
+              0,
+              -2
+            ]
+          ],
+          [
+            [
+              1,
+              -1
+            ]
+          ],
+          [
+            [
+              2,
+              -1
+            ],
+            [
+              0,
+              -2
+            ]
+          ]
+        ],
+        "table": "0110100110010110"
+      },
+      "seed": {
+        "type": "random",
+        "seed": 4242,
+        "density": 0.5,
+        "fill": 1
+      }
+    }
+  },
+  {
+    "name": "custom-2d-offsets",
+    "steps": 50,
+    "population": 1654,
+    "hash": "1e1531fdcc88c279",
+    "spec": {
+      "size": [
+        64,
+        64
+      ],
+      "wrap": [
+        true,
+        true
+      ],
+      "rule": {
+        "kind": "lifelike",
+        "birth": [
+          2
+        ],
+        "survive": [
+          1,
+          2
+        ],
+        "states": 2,
+        "neighborhood": {
+          "type": "custom",
+          "radius": 1,
+          "offsets": [
+            [
+              -2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              0,
+              -2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      },
+      "seed": {
+        "type": "random",
+        "seed": 4294967295,
+        "density": 0.2,
+        "fill": 1
+      }
+    }
+  }
+]

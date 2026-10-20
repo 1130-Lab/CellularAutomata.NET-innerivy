@@ -30,6 +30,20 @@ namespace CellularAutomata.NET
         /// If KeepAllStates is false, the maximum number of previous states to keep in memory.
         /// </summary>
         public int GridStatesMemoryLimit { get; set; } = 10;
+
+        /// <summary>
+        /// Maximum number of previous states each cell keeps in <see cref="CellularAutomataCell{T}.StateHistory"/>.
+        /// 0 disables history; a negative value keeps every state (memory grows every step).
+        /// </summary>
+        public int CellStateHistoryLimit { get; set; } = 10;
+
+        /// <summary>
+        /// Evaluate the rule for every cell every step. By default only cells that changed, or have a
+        /// neighbor that changed, are evaluated after the first step, which is only valid for rules
+        /// that depend solely on the cell's and its neighbors' current states. Enable this for rules
+        /// that use randomness, the generation number, or state history.
+        /// </summary>
+        public bool ProcessAllCells { get; set; }
     }
 
     public class CellularAutomataDimension

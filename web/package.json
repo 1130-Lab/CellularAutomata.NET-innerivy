@@ -1,0 +1,30 @@
+{
+  "name": "ca-web-visualizer",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build:dotnet": "node scripts/build-dotnet.mjs",
+    "dev": "node scripts/build-dotnet.mjs --if-missing && vite",
+    "build": "node scripts/build-dotnet.mjs && tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "oxlint",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "oxlint": "^1.88.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4"
+  }
+}
